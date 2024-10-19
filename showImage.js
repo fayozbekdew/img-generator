@@ -20,7 +20,6 @@ function showImage() {
 
   if (uploadInput.files && uploadInput.files[0]) {
     const reader = new FileReader();
-    
     reader.onload = function(e) {
       const img = new Image();
       img.src = e.target.result;
