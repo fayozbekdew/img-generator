@@ -12,7 +12,6 @@ let currentScale = 1.0;
 let currentRotation = 0;
 function showImage() {
 
-  
   const uploadInput = document.getElementById('upload');
   const imageContainer = document.getElementById('imageContainer');
 
