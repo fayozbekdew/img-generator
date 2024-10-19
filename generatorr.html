@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Автоматический генератор картин в стиле string art. Генерация не только круговых, но и квадратных картин! Результат работы вас порадует, убедитесь в этом лично."/>
+    <meta name="keywords" content="string art, string art generator, string art генератор"/>
+    <title>String art generator - Генератор стринг арт</title>
+    <link rel="icon" href="../favicon.ico">
+	<link rel="canonical" href="https://picgen.ru/generator/"/>
+<link rel="stylesheet" type="text/css" href="style.css">
+
+
+</head>
+<body>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();
+   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(96081642, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/96081642" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+<div id="nav" class="nav"></div>
+<div id="nav2" class="nav2"></div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('../menu/menu_top.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('nav2').innerHTML = data;
+        })
+        .catch(error => {
+            console.error('Error fetching top menu:', error);
+        });
+
+    fetch('../menu/menu_bottom.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('nav').innerHTML = data;
+        })
+        .catch(error => {
+            console.error('Error fetching bottom menu:', error);
+        });
+});
+</script>
+
+
+
+
+	<div id="main">
+		<div id="step1">
+			<center><h1>Генератор картины по номерам</h1></center>
+			<p style="font-size: 22px; text-align: center;">Выберите форму картины:</p>
+			<div style="display: flex;" class="radio-img-container">
+                <img src="circ.webp" data-original-src="circ.webp" data-alternate-src="circ_active.webp" alt="Круг" class="radio-img" data-value="0">
+				<img src="squar.webp" data-original-src="squar.webp" data-alternate-src="squar_active.webp" alt="Квадрат" class="radio-img" data-value="1">
+				<img src="paper.webp" data-original-src="paper.webp" data-alternate-src="paper_active.webp" alt="Лист бумаги" class="radio-img" data-value="2">
+            </div>
+            <br>
+			<button id="button">Выберите файл</button><br>
+			<input type="file" id="upload" accept="image/*">
+			<button onclick="showImage()">Загрузить</button>
+			<div id="imageContainer"></div>
+			<label for="scaleSlider" style="margin-top: 5px;">Масштаб:</label> <input type="range" id="scaleSlider" min="10" max="200" value="100" oninput="changeScale(this.value)">
+			<label for="rotateSlider">Поворот:</label> <input type="range" id="rotateSlider" min="-180" max="180" value="0" oninput="rotateImage(this.value)">
+			<br><button onclick="showImage2()">К ШАГУ 2</button>
+		</div>
+		<div id="step2">
+			<center><h1>Настройка параметров</h1></center>
+			<div id="imageContainer2" style="display:none"></div>
+			<div id="imageContainerSettings">
+			
+			<div class="row">
+			<div id="options-pane" class="col s12">
+			<ul class="collection">
+			<li class="collection-item">
+			<div class="row">
+                            <div class="input-field col s2">
+                                <input id="txtNrOfClusters" type="number" value="16" min="1" class="validate">
+                                <label for="txtNrOfClusters">Количество цветов
+                                    <i class="material-icons tooltipped"
+                                        data-tooltip="Количество используемых цветов при генерации картины">info</i>
+                                </label>
+                            </div>
+
+                            <div class="input-field col s2">
+                                <input id="txtClusterPrecision" type="number" value="1" min="1" step="0.05"
+                                    class="validate">
+                                <label for="txtClusterPrecision">Точность цветов
+                                    <i class="material-icons tooltipped"
+                                        data-tooltip="Определяет точность определения цветовых областей. Большее значение ускорит генерацию, но может привести к неоптимальному распределению цветов">info</i>
+                                </label>
+                            </div>
+                            
+                            <div class="input-field col s2">
+                                <input id="txtRandomSeed" type="number" value="0" min="0" step="1"
+                                    class="validate">
+                                <label for="txtRandomSeed">Случайное число
+                                    <i class="material-icons tooltipped"
+                                        data-tooltip="Начальное значение, которое будет использоваться генератором случайных чисел для выбора начального распределения цветов. Использование одного и того же начального значения гарантирует, что вы каждый раз будете получать один и тот же результат.">info</i>
+                                </label>
+                            </div>
+            </div>
+			</li>
+            <li class="collection-item">
+                        <div class="row">
+
+                            <div class="col s3">
+                                <label>Цветовое пространство
+                                    <i class="material-icons tooltipped"
+                                        data-tooltip="The color space to apply clustering in">info</i>
+                                </label>
+                            </div>
+                            <div class="col s2">
+                                <label>
+                                    <input id="optColorSpaceRGB" name="colorspace" type="radio" checked />
+                                    <span>RGB</span>
+                                </label>
+                            </div>
+                            <div class="col s2">
+                                <label>
+                                    <input id="optColorSpaceHSL" name="colorspace" type="radio" />
+                                    <span>HSL</span>
+                                </label>
+                            </div>
+                            <div class="col s2">
+                                <label>
+                                    <input id="optColorSpaceLAB" name="colorspace" type="radio" />
+                                    <span>Lab</span>
+                                </label>
+                            </div>
+
+                            <div class="col s12">
+                                <label for="txtKMeansColorRestrictions">Введите желаемые цвета
+                                    <i class="material-icons tooltipped"
+                                        data-tooltip="Укажите, какие цвета следует использовать, по одному на строку в формате r, g, b. Используйте // в качестве комментария. Если цвета не указаны, ограничения не применяются. Полезно, если у вас под рукой всего несколько цветов краски.">info</i>
+                                </label>
+                                <textarea id="txtKMeansColorRestrictions" class="materialize-textarea validate">
+								//0,0,0
+								//255,255,255
+								</textarea>
+                            </div>
+                        </div>
+            </li>
+			
+			<li class="collection-item">
+                        <div class="row">
+                            <div class="input-field col s4">
+                                <input id="txtNarrowPixelStripCleanupRuns" type="number" value="3" min="0"
+                                    class="validate">
+                                <label for="txtNarrowPixelStripCleanupRuns">Количество запусков для очистки узких пикселей
+                                    <i class="material-icons tooltipped"
+                                        data-tooltip="Очистка узких пикселей удаляет полосы из отдельных пиксельных строк, в результате чего границы некоторых фасетов становятся слишком узкими, чтобы быть полезными. Удаление небольших фасетов может привести к появлению новых узких пиксельных полос, поэтому это повторяется в течение нескольких итераций.">info</i>
+                                </label>
+                            </div>
+                            <div class="input-field col s4">
+                                <input id="txtRemoveFacetsSmallerThan" type="number" value="20" min="1"
+                                    class="validate">
+                                <label for="txtRemoveFacetsSmallerThan">Удаление мелких областей размером менее (пикселей)
+                                    <i class="material-icons tooltipped"
+                                        data-tooltip="Удаляет все области, размер которых меньше заданного количества пикселей. Уменьшение значения приведет к получению более детализированных результатов, но из-за их размера их может быть намного сложнее нарисовать.">info</i>
+                                </label>
+                            </div>
+                            <div class="input-field col s4">
+                                <input id="txtMaximumNumberOfFacets" type="number" value="100000" min="1"
+                                    class="validate">
+                                <label for="txtMaximumNumberOfFacets">Максимальное количество областей
+                                    <i class="material-icons tooltipped"
+                                        data-tooltip="Устанавливает максимальное количество областей для рисования">info</i>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <div class="row">
+                                    <div class="col s4">
+                                        <label>Порядок удаления мелких областей
+                                            <i class="material-icons tooltipped"
+                                                data-tooltip="Изменение размера от самого большого к самому маленькому предотвратит искажение форм границами, поскольку меньшие грани действуют как точки привязки границ">info</i>
+                                        </label>
+                                    </div>
+                                    <div class="col s4">
+                                        <label>
+                                            <input id="optFacetRemovalLargestToSmallest" name="smallfacetremovalorder"
+                                                type="radio" checked />
+                                            <span>От большего к меньшему</span>
+                                        </label>
+                                    </div>
+                                    <div class="col s4">
+                                        <label>
+                                            <input id="optFacetRemovalSmallestToLargest" name="smallfacetremovalorder"
+                                                type="radio" />
+                                            <span>От меньшего к большему</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+            </li>
+			<li class="collection-item">
+                        <div class="row">
+                            <div class="input-field col s5">
+                                <input id="txtNrOfTimesToHalveBorderSegments" type="number" value="2" min="0"
+                                    class="validate">
+                                <label for="txtNrOfTimesToHalveBorderSegments">Коэффициент сглаживания границ
+                                    <i class="material-icons tooltipped"
+                                        data-tooltip="Увеличение коэффициента приведет к большему сглаживанию границ, но с потерей детализации. Меньший коэффициент приведет к большей детализации, но будут сложнее границы для раскраски">info</i>
+                                </label>
+                            </div>
+                        </div>
+            </li>
+			</ul>
+			</div>
+			<!-- <div class="col s12"> -->
+                <!-- <a class="waves-effect waves-light btn" id="btnProcess">Process image</a> -->
+            <!-- </div> -->
+			</div>
+			
+            </div>
+			
+			
+			
+			
+
+
+	<br><button id="btnProcess" onclick="showImage3()">Сгенерировать картину</button>
+</div>	
+<div id="step3">
+	<center><h1>Результат</h1></center>
+	
+	<div class="row">
+
+            <div class="col s2">
+                <div class="status kMeans">
+                    K-means clustering
+                    <div class="progress">
+                        <div id="statusKMeans" class="determinate" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s2">
+                <div class="status facetBuilding">
+                    Facet building
+                    <div class="progress">
+                        <div id="statusFacetBuilding" class="determinate" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s2">
+                <div class="status facetReduction">
+                    Small facet pruning
+                    <div class="progress">
+                        <div id="statusFacetReduction" class="determinate" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s2">
+                <div class="status facetBorderPath">
+                    Border detection
+                    <div class="progress">
+                        <div id="statusFacetBorderPath" class="determinate" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s2">
+                <div class="status facetBorderSegmentation">
+                    Border segmentation
+                    <div class="progress">
+                        <div id="statusFacetBorderSegmentation" class="determinate" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s2">
+                <div class="status facetLabelPlacement">
+                    Label placement
+                    <div class="progress">
+                        <div id="statusFacetLabelPlacement" class="determinate" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	
+	
+	
+	
+	<div id="imageContainer3"><canvas id="myCanvas" width="500" height="500"></canvas></div>
+	<br>
+<div id="imageContainerID">
+    <div id="progressBarContainer" style="width: 100%; background-color: #ddd;">
+        <div id="progressBar" style="width: 0%; height: 20px; background-color: #4CAF50;"></div>
+    </div>
+    <p id="loading-text">Перейдите к генерации изображения</p>
+</div>	
+	<br><button onclick="downloadImage()">Сохранить изображение</button>
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+<script>
+let selectedImage = null;
+
+document.addEventListener('DOMContentLoaded', function() {
+  const container = document.querySelector('.radio-img-container');
+  const images = container.querySelectorAll('.radio-img');
+
+
+  // Получить элементы контейнеров по их id
+  const imageContainer = document.getElementById('imageContainer');
+  const imageContainer2 = document.getElementById('imageContainer2');
+  const imageContainer3 = document.getElementById('imageContainer3');
+  
+  images.forEach(img => {
+    img.addEventListener('click', function() {
+      if (selectedImage && selectedImage !== this) {
+        selectedImage.src = selectedImage.getAttribute('data-original-src');
+        selectedImage.classList.remove('selected');
+      }
+
+      // Если это изображение уже выбрано, не делаем ничего
+      if (selectedImage !== this) {
+        // Меняем изображение на выбранное
+        this.src = this.getAttribute('data-alternate-src');
+        this.classList.add('selected');
+        selectedImage = this;
+      } else {
+        // Возвращаем изображение на исходное
+        this.src = this.getAttribute('data-original-src');
+        this.classList.remove('selected');
+        selectedImage = null;
+      }
+
+      // Получить значение data-value выбранного изображения
+      const value = this.getAttribute('data-value');
+
+      // Установить значение data-value для каждого контейнера
+      imageContainer.setAttribute('data-value', value);
+      imageContainer2.setAttribute('data-value', value);
+      imageContainer3.setAttribute('data-value', value);
+    });
+  });
+
+  images[0].click(); // Выбираем первое изображение по умолчанию
+});
+
+</script>
+<script>
+    // Получаем изображения и поле ввода
+    var images = document.querySelectorAll('.radio-img');
+    var input = document.getElementById('nailsSlider');
+    var selectedDataValue = "0"; // Значение по умолчанию
+
+    // Функция для проверки числа
+    function validateNumber(value) {
+        if (selectedDataValue === "1" && value % 4 !== 0) {
+            alert('Число должно быть кратно 4');
+            // Корректировка значения до ближайшего кратного 4
+            input.value = Math.floor(value / 4) * 4;
+        }
+    }
+
+    // Обработчик событий для изображений
+    images.forEach(function(img) {
+        img.addEventListener('click', function() {
+            selectedDataValue = img.getAttribute('data-value');
+            // Проверяем число при нажатии на изображение
+            validateNumber(input.value);
+        });
+    });
+
+    // Обработчик событий для поля ввода для проверки при изменении
+    input.addEventListener('change', function() {
+        validateNumber(input.value);
+    });
+</script>
+<script>
+  const button = document.getElementById("button");
+  const upload = document.getElementById("upload");
+
+  button.addEventListener("click", function() {
+    upload.click();
+  });
+
+  upload.addEventListener("change", function() {
+    if (upload.files.length > 0) {
+      button.textContent = "Файл выбран"; // имя выбранного файла
+    } else {
+      button.textContent = "Выбрать файл"; // текст по умолчанию
+    }
+  });
+</script>
+
+<script src="showImage.js"></script>
+<script src="showImage2.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

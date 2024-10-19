@@ -3424,7 +3424,6 @@ define("main", ["require", "exports", "gui", "lib/clipboard"], function (require
         });
         gui_2.loadExample("imgSmall");
         $("#btnProcess").click(function () {
-            alert(111)
             return __awaiter(this, void 0, void 0, function* () {
                 try {
                     yield gui_2.process();
