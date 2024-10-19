@@ -123,10 +123,10 @@
   align-items: center;
   margin-bottom: 8px;
 }
-
+/* 
 #file {
   display: none;
-}
+} */
 
 .file__btn {
   display: inline-block;
@@ -367,8 +367,9 @@ button:hover {
 
 }
 
-#step1 {
+#step1, #step2, #step3 {
 	height: 100%;
+	width: 500px;
 	margin-top: 10vh;
 }
 

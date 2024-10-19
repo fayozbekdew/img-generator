@@ -3240,9 +3240,9 @@ define("gui", ["require", "exports", "common", "guiprocessmanager", "settings"],
         // load image
         const img = document.getElementById(imgId);
         const c = document.getElementById("canvas");
-        const ctx = c.getContext("2d");
-        c.width = img.naturalWidth;
-        c.height = img.naturalHeight;
+        const ctx = c?.getContext("2d");
+        c.width = img?.naturalWidth;
+        c.height = img?.naturalHeight;
         ctx.drawImage(img, 0, 0);
     }
     exports.loadExample = loadExample;
@@ -3264,7 +3264,7 @@ define("lib/clipboard", ["require", "exports"], function (require, exports) {
             this.paste_event_support = false;
             const _self = this;
             this.canvas = document.getElementById(canvas_id);
-            this.ctx = this.canvas.getContext("2d");
+            this.ctx = this.canvas?.getContext("2d");
             this.autoresize = autoresize;
             // handlers
             // document.addEventListener("keydown", function (e) {
@@ -3424,6 +3424,7 @@ define("main", ["require", "exports", "gui", "lib/clipboard"], function (require
         });
         gui_2.loadExample("imgSmall");
         $("#btnProcess").click(function () {
+            alert(111)
             return __awaiter(this, void 0, void 0, function* () {
                 try {
                     yield gui_2.process();
