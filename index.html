@@ -1,13 +1,11 @@
-
-
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Paint by number generator</title>
-    <!-- <link rel="stylesheet" href="styles/lib/materialize.min.css"> -->
+    <link rel="stylesheet" href="styles/lib/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- <link rel='stylesheet' href='styles/main.css' /> -->
+    <link rel='stylesheet' href='styles/main.css' />
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
@@ -61,14 +59,15 @@
             <div id="options-pane" class="col s12">
                 <ul class="collection">
                     <li class="collection-item">
-                        <div class="row">
-                            <div class="input-field col s2">
+                        <div style="display: flex; width: 100%; align-items: center; justify-content: space-between;"
+                            class="row">
+                            <div class="input-field col ">
                                 <input id="txtNrOfClusters" type="number" value="16" min="1" class="validate">
                                 <label for="txtNrOfClusters">Number of colors
                                 </label>
                             </div>
 
-                            <div class="input-field col s2">
+                            <div class="input-field col ">
                                 <input id="txtClusterPrecision" type="number" value="1" min="1" step="0.05"
                                     class="validate">
                                 <label for="txtClusterPrecision">Cluster precision
@@ -76,7 +75,7 @@
                                 </label>
                             </div>
 
-                            <div class="input-field col s2">
+                            <div class="input-field col">
                                 <input id="txtRandomSeed" type="number" value="0" min="0" step="1" class="validate">
                                 <label for="txtRandomSeed">Random seed
 
@@ -125,22 +124,21 @@
                     <li class="collection-item">
                         <div class="row">
                             <div class="input-field col s4">
-                                <input id="txtNarrowPixelStripCleanupRuns" type="number" value="3" min="0"
-                                    class="validate">
-                                <label for="txtNarrowPixelStripCleanupRuns">Number of runs for narrow pixel cleanup
-
-                                </label>
+                                <input style="margin-top: 20px;" id="txtNarrowPixelStripCleanupRuns" type="number"
+                                    value="3" min="0" class="validate">
+                                <label for="txtNarrowPixelStripCleanupRuns">Number of runs for narrow pixel
+                                    cleanup</label>
                             </div>
                             <div class="input-field col s4">
-                                <input id="txtRemoveFacetsSmallerThan" type="number" value="20" min="1"
-                                    class="validate">
+                                <input style="margin-top: 20px;" id="txtRemoveFacetsSmallerThan" type="number"
+                                    value="20" min="1" class="validate">
                                 <label for="txtRemoveFacetsSmallerThan">Remove small facets smaller than (pixels)
 
                                 </label>
                             </div>
                             <div class="input-field col s4">
-                                <input id="txtMaximumNumberOfFacets" type="number" value="100000" min="1"
-                                    class="validate">
+                                <input style="margin-top: 20px;" id="txtMaximumNumberOfFacets" type="number"
+                                    value="100000" min="1" class="validate">
                                 <label for="txtMaximumNumberOfFacets">Maximum number of facets
 
                                 </label>
@@ -154,7 +152,7 @@
 
                                         </label>
                                     </div>
-                                    <div class="col s4">
+                                    <div style="" class="col s4">
                                         <label>
                                             <input id="optFacetRemovalLargestToSmallest" name="smallfacetremovalorder"
                                                 type="radio" checked />
@@ -176,8 +174,8 @@
                     <li class="collection-item">
                         <div class="row">
                             <div class="input-field col s5">
-                                <input id="txtNrOfTimesToHalveBorderSegments" type="number" value="2" min="0"
-                                    class="validate">
+                                <input style="margin-top: 10px;" id="txtNrOfTimesToHalveBorderSegments" type="number"
+                                    value="2" min="0" class="validate">
                                 <label for="txtNrOfTimesToHalveBorderSegments">Amount of times to halve border segment
                                     complexity)
 
@@ -295,31 +293,30 @@
 
                 <div id="output-pane" class="col s12">
                     <div style="" class="row">
-                        <div class="col s2">
+                        <div class="">
                             <label>SVG Render options</label>
                         </div>
-                        <div class="col s2">
+                        <div class="">
                             <label>
                                 <input id="chkShowLabels" type="checkbox" checked="checked" />
                                 <span>Show labels</span>
                             </label>
                         </div>
-                        <div class="col s2">
+                        <div class="">
                             <label>
                                 <input id="chkFillFacets" type="checkbox" checked="checked" />
                                 <span>Fill facets</span>
                             </label>
                         </div>
-                        <div class="col s2">
-
+                        <div class="">
                             <label>
                                 <input id="chkShowBorders" type="checkbox" checked="checked" />
                                 <span>Show borders</span>
                             </label>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col s3">
+                    <div style="display:flex ; flex-direction: column;" class="">
+                        <div style="display: center; width: 200px;" class="col ">
                             <div class="input-field">
                                 <input placeholder="SVG Size multiplier" id="txtSizeMultiplier" type="number" value="3"
                                     min="1" class="validate">
@@ -328,7 +325,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col s3">
+                        <div style="display: center; width: 200px;" class="col">
                             <div class="input-field">
                                 <input placeholder="Label font size" id="txtLabelFontSize" type="number" value="50"
                                     min="1" max="100">
@@ -337,7 +334,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col s3">
+                        <div style="display: center; width: 200px;" class="col">
                             <div class="input-field">
                                 <input placeholder="Label font size" id="txtLabelFontColor" type="text" value="#000">
                                 <label for="txtLabelFontColor">Label font color
@@ -346,37 +343,33 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div id="palette" class="palette">
+                    <div style="display: flex; align-items: center; flex-wrap: wrap;" class="row">
+                        <div  id="palette" class="palette">
 
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col s12">
-                            <div id="svgContainer">
+                    <div style="display: flex; overflow: scroll; width: 480px;" class="row">
+                        <div class="col">
+                            <div style="width: 100%; height: 100%;" id="svgContainer">
 
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div id="imageContainerID">
-                            <div id="progressBarContainer" style="width: 100%; background-color: #ddd;">
-                                <div id="progressBar" style="width: 0%; height: 20px; background-color: #4CAF50;">
-                                </div>
-                            </div>
-                            <p id="loading-text">Перейдите к генерации изображения</p>
+                        <div style="display: flex; align-items: center; justify-content: space-between;" class="">
+                            <a style="cursor: pointer; display: flex; align-items: center; justify-content: center; width: 150px; height: 50px; color: white; background-color: blue; border-radius: 10px;"
+                                class="waves-effect waves-light btn" id="btnDownloadSVG">Download SVG</a>
+                            <a style="cursor: pointer; display: flex; align-items: center; justify-content: center; width: 150px; height: 50px; color: white; background-color: blue; border-radius: 10px;"
+                                class="waves-effect waves-light btn" id="btnDownloadPNG">Download PNG</a>
+                            <a style="cursor: pointer; display: flex; align-items: center; justify-content: center; width: 150px; height: 50px; color: white; background-color: blue; border-radius: 10px;"
+                                class="waves-effect waves-light btn" id="btnDownloadPalettePNG">Download palette</a>
                         </div>
-                        <!-- <div class="col s3"> -->
-                        <button
-                            style="margin-top: 20px; display:flex; width: 100%; align-items: center; justify-content: center;"
-                            class="waves-effect waves-light btn" id="btnDownloadSVG">Сохранить изображение</button>
-                        <!-- </div> -->
                         <!-- <div class="col s3">
-                        <a class="waves-effect waves-light btn" id="btnDownloadPNG">Download PNG</a>
+                       
                     </div>
                     <div class="col s3">
-                        <a class="waves-effect waves-light btn" id="btnDownloadPalettePNG">Download palette</a>
+                        
                     </div> -->
                     </div>
                 </div>
